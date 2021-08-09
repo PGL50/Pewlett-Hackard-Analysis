@@ -6,6 +6,8 @@ CREATE TABLE departments (
      UNIQUE (dept_name)
 );
 
+--SELECT * FROM departments
+
 CREATE TABLE employees (
 	 emp_no INT NOT NULL,
      birth_date DATE NOT NULL,
@@ -41,7 +43,8 @@ CREATE TABLE titles (
   from_date DATE NOT NULL,
   to_date DATE NOT NULL,
   FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
-  PRIMARY KEY (emp_no,title,from_date)
+  FOREIGN KEY (emp_no) REFERENCES salaries (emp_no),
+  PRIMARY KEY (emp_no,title,from_date )
 );
 
 CREATE TABLE dept_emp (
@@ -60,6 +63,7 @@ SELECT * FROM salaries;
 SELECT * FROM dept_emp;
 --DROP TABLE salaries CASCADE;
 SELECT * FROM salaries;
+SELECT * FROM dept_manager;
 --DROP TABLE titles;
 SELECT * FROM titles;
 
@@ -171,6 +175,9 @@ LEFT JOIN dept_emp as de
 ON ri.emp_no = de.emp_no
 WHERE de.to_date = ('9999-01-01');
 
+
+SELECT COUNT(*) FROM current_emp
+
 --Use Count, Group By, and Order By
 
 -- Employee count by department number
@@ -230,7 +237,7 @@ WHERE (e.birth_date BETWEEN '1952-01-01' AND '1955-12-31')
      AND (e.hire_date BETWEEN '1985-01-01' AND '1988-12-31')
      AND (de.to_date = '9999-01-01');
 	 
--- List of managers per department
+-- List 2 of managers per department
 SELECT  dm.dept_no,
         d.dept_name,
         dm.emp_no,
@@ -238,11 +245,21 @@ SELECT  dm.dept_no,
         ce.first_name,
         dm.from_date,
         dm.to_date
--- INTO manager_info
+INTO manager_info
 FROM dept_manager AS dm
     INNER JOIN departments AS d
         ON (dm.dept_no = d.dept_no)
     INNER JOIN current_emp AS ce
         ON (dm.emp_no = ce.emp_no);
 		
-select count(*) from dept_manager
+select * from dept_manager
+
+--List 3: Department Retirees
+SELECT ce.emp_no,
+ce.first_name,
+ce.last_name,
+d.dept_name
+INTO dept_info
+FROM current_emp as ce
+INNER JOIN dept_emp AS de ON (ce.emp_no = de.emp_no)
+INNER JOIN departments AS d ON (de.dept_no = d.dept_no);
