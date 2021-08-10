@@ -33,6 +33,7 @@ ORDER BY COUNT(title) DESC ;
 
 --Deliverable 2: The Employees Eligible for the Mentorship Program
 -- create a Mentorship Eligibility table for current employees 
+-- DROP TABLE mentorship_eligibilty
 SELECT DISTINCT ON (e.emp_no) 
 	e.emp_no,
     e.first_name,
@@ -47,4 +48,4 @@ INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
 INNER JOIN titles as t ON (e.emp_no = t.emp_no)
 WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
 AND d.to_date = ('9999-01-01')
-ORDER by e.emp_no; 
+ORDER by e.emp_no, d.to_date DESC;
