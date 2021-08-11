@@ -72,5 +72,23 @@ INNER JOIN titles as t ON (e.emp_no = t.emp_no)
 GROUP BY title
 ORDER BY COUNT(e.emp_no) desc;
 
+--Non-Retiring employees by title
+SELECT DISTINCT COUNT(e.emp_no), title
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+WHERE e.birth_date NOT BETWEEN '1965-01-01' AND '1965-12-31'
+GROUP BY title
+ORDER BY COUNT(e.emp_no) desc;
+
+--Non-Retiring current employees by title
+SELECT DISTINCT COUNT(e.emp_no), title
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
+WHERE e.birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
+AND d.to_date = ('9999-01-01')
+GROUP BY title
+ORDER BY COUNT(e.emp_no) desc;
+
 --- Look at salaries
 
