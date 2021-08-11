@@ -12,7 +12,7 @@ INNER JOIN titles as t ON (e.emp_no = t.emp_no)
 WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
 ORDER by e.emp_no ;
 
--- Use Dictinct with Orderby to remove duplicate rows
+-- Use Distinct with Orderby to remove duplicate rows
 --create a Unique Titles table that contains the employee number, 
 --first and last name, and most recent title
 SELECT DISTINCT ON (rt.emp_no) rt.emp_no,
@@ -49,3 +49,26 @@ INNER JOIN titles as t ON (e.emp_no = t.emp_no)
 WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
 AND d.to_date = ('9999-01-01')
 ORDER by e.emp_no, d.to_date DESC;
+
+
+
+---NEW Tables
+--Total employees with titles
+SELECT DISTINCT ON (e.emp_no) e.emp_no,
+    e.first_name,
+    e.last_name,
+    t.title,
+    t.from_date,
+    t.to_date
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+ORDER by e.emp_no ;
+
+--Total employees by title
+SELECT DISTINCT COUNT(e.emp_no), title
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+GROUP BY title
+ORDER BY COUNT(e.emp_no) desc;
+
+
