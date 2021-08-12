@@ -1,6 +1,6 @@
 -- Deliverable 1: The Number of Retiring Employees by Title
 -- Create a Retirement Titles table for employees
--- Eligibility for retirement based on DOB in 1952
+-- Eligibility for retirement based on DOB in 1952-55
 SELECT e.emp_no,
     e.first_name,
     e.last_name,
@@ -20,7 +20,7 @@ SELECT DISTINCT ON (rt.emp_no) rt.emp_no,
     rt.first_name,
     rt.last_name,
     rt.title
--- INTO unique_titles
+INTO unique_titles
 FROM retirement_titles rt
 ORDER BY rt.emp_no, rt.to_date DESC;
 
@@ -53,40 +53,52 @@ ORDER by e.emp_no, d.to_date DESC;
 
 -- select count(*) from mentorship_eligibilty
 
----NEW Tables
---Total employees with titles
-SELECT DISTINCT ON (e.emp_no) e.emp_no,
+---NEW Tables for Deliverable 3
+
+--Total non retiring employees by title
+--DROP TABLE nonretirement_titles
+SELECT e.emp_no,
     e.first_name,
     e.last_name,
-	date_part('year', e.birth_date) as birth_year,
+	e.birth_date,
     t.title,
     t.from_date,
     t.to_date
-FROM employees as e
-INNER JOIN titles as t ON (e.emp_no = t.emp_no)
-ORDER by e.emp_no ;
-
---Total employees by title
-SELECT DISTINCT COUNT(e.emp_no), title
-FROM employees as e
-INNER JOIN titles as t ON (e.emp_no = t.emp_no)
-GROUP BY title
-ORDER BY COUNT(e.emp_no) desc;
-
---Non-Retiring employees by title
-SELECT DISTINCT COUNT(e.emp_no), title
-FROM employees as e
-INNER JOIN titles as t ON (e.emp_no = t.emp_no)
-WHERE e.birth_date NOT BETWEEN '1965-01-01' AND '1965-12-31'
-GROUP BY title
-ORDER BY COUNT(e.emp_no) desc;
-
---Non-Retiring current employees by title
-SELECT DISTINCT COUNT(e.emp_no), title
+INTO nonretirement_titles
 FROM employees as e
 INNER JOIN titles as t ON (e.emp_no = t.emp_no)
 INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
-WHERE e.birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
+WHERE e.birth_date BETWEEN '1956-01-01' AND '1965-12-31'
+AND d.to_date = ('9999-01-01')
+ORDER by e.emp_no ;
+
+-- Get lst Title for non-retiring employees
+SELECT DISTINCT ON (rt.emp_no) rt.emp_no,
+    rt.first_name,
+    rt.last_name,
+    rt.title
+INTO unique_titles_nonretiring
+FROM nonretirement_titles rt
+ORDER BY rt.emp_no, rt.to_date DESC;
+
+--create a Non-Retiring Titles table that contains the number of titles 
+--filled by current employees who are not retiring
+SELECT DISTINCT COUNT(title) as "Total Employees", title
+INTO nonretiring_titles
+FROM unique_titles_nonretiring
+GROUP BY title
+ORDER BY COUNT(title) DESC ;
+
+
+
+
+--Non-Retiring current employees by title
+SELECT DISTINCT COUNT(e.emp_no) as "Total Non-Retiring Employees", title
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
+-- WHERE e.birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
+WHERE e.birth_date BETWEEN '1953-01-01' AND '1965-12-31'
 AND d.to_date = ('9999-01-01')
 GROUP BY title
 ORDER BY COUNT(e.emp_no) desc;

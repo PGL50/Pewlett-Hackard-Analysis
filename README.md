@@ -4,10 +4,10 @@
 
 ## Deliverable 1: The Number of Retiring Employees by Title
 
-### The following code selects info from joined employees and titles tables with DOB in 1952 and creates a new table - retirement_titles
+### The following code selects info from joined employees and titles tables with DOB in 1952-55 and creates a new table - retirement_titles
 ``` SQL
 -- Create a Retirement Titles table for employees
--- Eligibility for retirement based on DOB in 1952
+-- Eligibility for retirement based on DOB in 1952-55
 SELECT e.emp_no,
     e.first_name,
     e.last_name,
@@ -61,7 +61,7 @@ ORDER BY COUNT(title) DESC ;
 ### The following code selects info from the joined employees, dept_emp and titles tables. The mentorship eligibility is based on DOB in 1965 and employment to_date = '9999-01-01' to signify current employee. The results are saved in a new table -- mentorship_eligibilty
 
 ```SQL
--- create a Mentorship Eligibility table for current employees 
+-- create a Mentorship Eligibility table for current employees with DOB in 1965
 SELECT DISTINCT ON (e.emp_no) 
 	e.emp_no,
     e.first_name,
@@ -78,3 +78,13 @@ WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
 AND d.to_date = ('9999-01-01')
 ORDER by e.emp_no, d.to_date DESC;
 ```
+
+### The resulting table is a list of all the mentorship eligible employees
+![Mentorship Eligible](./Resources/mentorship_eligibilty.png) 
+
+## Results
+
+-   First one
+-   Second one
+-   Third one
+-   Fourth one
