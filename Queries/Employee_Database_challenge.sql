@@ -20,13 +20,13 @@ SELECT DISTINCT ON (rt.emp_no) rt.emp_no,
     rt.first_name,
     rt.last_name,
     rt.title
-INTO unique_titles
+-- INTO unique_titles
 FROM retirement_titles rt
 ORDER BY rt.emp_no, rt.to_date DESC;
 
 --create a Retiring Titles table that contains the number of titles 
 --filled by employees who are retiring
-SELECT DISTINCT COUNT(title), title
+SELECT DISTINCT COUNT(title) as "Total Employees", title
 INTO retiring_titles
 FROM unique_titles
 GROUP BY title

@@ -53,3 +53,28 @@ FROM unique_titles
 GROUP BY title
 ORDER BY COUNT(title) DESC ;
 ```
+### The resulting table is a list of all job titles with the total number of retiring employees within each title
+![Retiring Titles](./Resources/retiring_titles.png) 
+
+## Deliverable 2: The Employees Eligible for the Mentorship Program
+
+### The following code selects info from the joined employees, dept_emp and titles tables. The mentorship eligibility is based on DOB in 1965 and employment to_date = '9999-01-01' to signify current employee. The results are saved in a new table -- mentorship_eligibilty
+
+```SQL
+-- create a Mentorship Eligibility table for current employees 
+SELECT DISTINCT ON (e.emp_no) 
+	e.emp_no,
+    e.first_name,
+    e.last_name,
+	e.birth_date,
+	d.from_date,
+	d.to_date,
+    t.title
+INTO mentorship_eligibilty
+FROM employees as e
+INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+AND d.to_date = ('9999-01-01')
+ORDER by e.emp_no, d.to_date DESC;
+```
