@@ -84,7 +84,14 @@ ORDER by e.emp_no, d.to_date DESC;
 
 ## Results
 
--   First one
+-   Large percentage of Total Employees are of retirement age
+    - Total Employees = 300,024
+    ```SQL 
+    select count(emp_no) as "Total Employees" from employees 
+    ```
+
+    ![Retiring Titles](./Resources/retiring_titles.png) 
+
 -   Second one
 -   Third one
 -   Fourth one
