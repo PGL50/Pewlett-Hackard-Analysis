@@ -47,8 +47,8 @@ INTO mentorship_eligibilty
 FROM employees as e
 INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
 INNER JOIN titles as t ON (e.emp_no = t.emp_no)
-WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
-AND d.to_date = ('9999-01-01')
+WHERE d.to_date = ('9999-01-01')
+AND e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
 ORDER by e.emp_no, d.to_date DESC;
 
 -- select count(*) from mentorship_eligibilty

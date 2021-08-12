@@ -74,8 +74,8 @@ INTO mentorship_eligibilty
 FROM employees as e
 INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
 INNER JOIN titles as t ON (e.emp_no = t.emp_no)
-WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
-AND d.to_date = ('9999-01-01')
+WHERE d.to_date = ('9999-01-01')
+AND e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
 ORDER by e.emp_no, d.to_date DESC;
 ```
 
@@ -84,11 +84,14 @@ ORDER by e.emp_no, d.to_date DESC;
 
 ## Results
 
--   Large percentage of Total Employees are of retirement age
+-   Large percentage of Total Employees are of retirement age (90,398/300,024 = 30.1%)
     - Total Employees = 300,024
     ```SQL 
     select count(emp_no) as "Total Employees" from employees 
     ```
+    ![Total Employees](./Resources/total_employees.png)
+
+    - Total Retirement Eligible Employees = 90,398
 
     ![Retiring Titles](./Resources/retiring_titles.png) 
 
