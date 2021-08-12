@@ -90,5 +90,21 @@ AND d.to_date = ('9999-01-01')
 GROUP BY title
 ORDER BY COUNT(e.emp_no) desc;
 
---- Look at salaries
+--- Look at salaries of retiring people
+SELECT e.emp_no,
+    e.first_name,
+    e.last_name,
+    t.title,
+    t.from_date,
+    t.to_date,
+	s.salary
+INTO retirement_salaries
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+INNER JOIN salaries as s ON (e.emp_no = s.emp_no)
+WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
+ORDER by e.emp_no ;
 
+select avg(salary), title
+from retirement_salaries
+group by title ;
