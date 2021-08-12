@@ -1,5 +1,6 @@
 -- Deliverable 1: The Number of Retiring Employees by Title
 -- Create a Retirement Titles table for employees
+-- Eligibility for retirement based on DOB in 1952
 SELECT e.emp_no,
     e.first_name,
     e.last_name,
@@ -105,6 +106,27 @@ INNER JOIN salaries as s ON (e.emp_no = s.emp_no)
 WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
 ORDER by e.emp_no ;
 
-select avg(salary), title
+select round(avg(salary),0) as "Average Salary", title
 from retirement_salaries
+group by title ;
+
+--- Look at salaries of mentorship eligible people
+SELECT e.emp_no,
+    e.first_name,
+    e.last_name,
+    t.title,
+    t.from_date,
+    t.to_date,
+	s.salary
+INTO mentorship_salaries
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+INNER JOIN salaries as s ON (e.emp_no = s.emp_no)
+INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
+WHERE e.birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+AND d.to_date = ('9999-01-01')
+ORDER by e.emp_no ;
+
+select round(avg(salary),0) as "Average Salary", title
+from mentorship_salaries
 group by title ;
