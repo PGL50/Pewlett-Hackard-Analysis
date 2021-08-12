@@ -56,6 +56,15 @@ ORDER BY COUNT(title) DESC ;
 select * from nonretiring_titles
 
 
+--- Look at mentorship totals for bullet list Deliverable 3
+select count(*) from mentorship_eligibilty ;
+
+select title, count(emp_no) as "Total Mentorship Employees"
+from mentorship_eligibilty
+group by title
+order by 2 desc ;
+
+
 --- Look at salaries of retiring people
 SELECT e.emp_no,
     e.first_name,
