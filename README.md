@@ -24,7 +24,7 @@ ORDER by e.emp_no ;
 ### The resulting table is a list of all employees with DOB in 1952 and their job titles (Multiple titles per employee)
 ![Retirement Titles](./Resources/retirement_titles.png) 
 
-### The following code selects info from the retirement_titles tables and selects the most recent title along with first and last name
+### The following code selects info from the retirement_titles tables and selects the most recent title along with first and last name and saves it into a new table -- unique_tables
 
 ```SQL
 -- Use Distinct with Orderby to remove duplicate rows
@@ -40,4 +40,16 @@ ORDER BY rt.emp_no, rt.to_date DESC;
 ```
 
 ### The resulting table is a list of all retirement eligible employees and their most recent job title
-![Retirement Titles](./Resources/retirement_titles.png) 
+![Unique Titles](./Resources/unique_titles.png) 
+
+### The following code selects info from the unique_titles tables and counts the number of employees with each title into a new table - retiring_titles
+
+```SQL
+--create a Retiring Titles table that contains the number of titles 
+--filled by employees who are retiring
+SELECT DISTINCT COUNT(title), title
+INTO retiring_titles
+FROM unique_titles
+GROUP BY title
+ORDER BY COUNT(title) DESC ;
+```
