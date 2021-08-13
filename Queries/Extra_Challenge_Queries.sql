@@ -83,7 +83,12 @@ INNER JOIN employees as e ON (u.emp_no = e.emp_no)
 INNER JOIN salaries as s ON (u.emp_no = s.emp_no)
 ORDER by u.emp_no ;
 
-select count(*) from retirement_salaries ; 
+select count(*) from retirement_salaries ;
+
+select DOByear, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+from retirement_salaries
+group by title ,DOByear
+order by title ,DOByear ;
 
 select gender, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
 from retirement_salaries
@@ -93,6 +98,10 @@ order by title ,gender ;
 select gender, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
 from retirement_salaries
 group by gender ;
+
+select DOByear, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+from retirement_salaries
+group by DOByear , gender ;
 
 
 --- Look at salaries of non retiring people
@@ -115,6 +124,11 @@ ORDER by u.emp_no ;
 
 select count(*) from non_retirement_salaries ; 
 
+select DOByear, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+from non_retirement_salaries
+group by title ,DOByear
+order by title ,DOByear ;
+
 select gender, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
 from non_retirement_salaries
 group by title ,gender
@@ -124,4 +138,39 @@ select gender, count(emp_no) as "number of Employees", round(avg(salary),0) as "
 from non_retirement_salaries
 group by gender ;
 
+select DOByear, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+from non_retirement_salaries
+where dobyear != 1965
+group by DOByear ;
 
+
+--- Look at salaries of mentees
+select count(*) from mentorship_eligibilty
+select * from mentorship_eligibilty
+--- Look at salaries of non retiring people
+--DROP TABLE mentorship_salaries
+SELECT u.emp_no,
+    u.first_name,
+    u.last_name,
+    u.title,
+	e.birth_date,
+	date_part('year',e.birth_date) as DOBYear,
+	e.gender,
+	s.salary
+INTO mentorship_salaries
+FROM mentorship_eligibilty as u
+INNER JOIN employees as e ON (u.emp_no = e.emp_no)
+INNER JOIN salaries as s ON (u.emp_no = s.emp_no)
+ORDER by u.emp_no ;
+
+select count(*) from mentorship_salaries ; 
+select * from mentorship_salaries ; 
+
+select gender, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+from mentorship_salaries
+group by title ,gender
+order by title ,gender ;
+
+select gender, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+from mentorship_salaries
+group by gender ;
