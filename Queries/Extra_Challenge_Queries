@@ -57,7 +57,7 @@ select * from nonretiring_titles
 
 
 --- Look at mentorship totals for bullet list Deliverable 3
-select count(*) from mentorship_eligibilty ;
+select count(*) as "Mentees" from mentorship_eligibilty ;
 
 select title, count(emp_no) as "Total Mentorship Employees"
 from mentorship_eligibilty

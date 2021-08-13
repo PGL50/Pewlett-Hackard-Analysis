@@ -98,9 +98,18 @@ ORDER by e.emp_no, d.to_date DESC;
 -   More than 2/3 of the Retirement Eligible Employees are in Senior or Leadership positions (68.8%)
     - Senior Engineer-29,414 + Senior Staff-28,254 + Technique Leader-4,502 + Manager-2 = 62,172
         - 62,172/90,398 = 68.8%
--   There are only 1,549 Employees 
+-   There are only 1,549 Employees in the mentorship eligible category; less than 1% of the total employees (1,549/300,024 = 0.52%)
     ```SQL
     select count(*) as "Mentees" from mentorship_eligibilty ;
     ```
     ![Mentee Totals](./Resources/mentees_total.png) 
--   Fourth one
+
+-   Only 815 on the mentees are in Senior or Leadership positions
+    - Senior Engineer-169 + Senior Staff-569 + Technique Leader-77= 815
+    ```SQL
+    select title, count(emp_no) as "Total Mentorship Employees"
+    from mentorship_eligibilty
+    group by title
+    order by count(emp_no) desc ;
+    ```
+    ![Mentee Titles](./Resources/mentees_titles.png) 
