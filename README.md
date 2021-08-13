@@ -117,7 +117,7 @@ ORDER by e.emp_no, d.to_date DESC;
 ## Summary and Further Analyses
 
 1. How many roles will need to be filled as the "silver tsunami" begins to make an impact?
-    - New code to look at number of retiring employees by age (DOBYear) to see how many may be leaving by year,
+    - New code to look at number of retiring employees by age (DOBYear) to see how many may be leaving by year. 
     ```sql
     SELECT u.emp_no,
         u.first_name,
@@ -133,11 +133,55 @@ ORDER by e.emp_no, d.to_date DESC;
     INNER JOIN salaries as s ON (u.emp_no = s.emp_no)
     ORDER by u.emp_no ;
 
-    select DOByear, count(emp_no) as "number of Employees"
+    select DOByear, count(emp_no) as "Number of Employees"
     from retirement_salaries
     group by DOByear
     order by DOByear ;
     ```
     ![Retire by Year](./Resources/retiring_by_year.png) 
 
+    - Similar code was created to look at non Retiring employees by selecting those not in the unique_titles table
+    ```sql
+        SELECT 
+ 	        e.emp_no,
+            e.first_name,
+            e.last_name,
+	        e.birth_date,
+	        date_part('year',e.birth_date) as DOBYear
+        INTO non_retirement_employees
+        FROM employees as e
+        WHERE emp_no NOT IN
+            (SELECT emp_no 
+            FROM unique_titles);
+   ```
+
     ![Non Retire by Year](./Resources/nonretiring_by_year.png) 
+
+    - The number of employees is pretty constant by age until 1965, the year mentorship eligibilty starts. At that age the number of employees drops off considerably as seen below.
+
+    ![Number by Year](./Resources/retiring_by_year_gr.png)  
+
+    - The charts below (grey is retirement age, yellow is mentorship age and blue is all others) shows that 2 positions of leadership (Senior Engineer, Senior Staff) have consistently similar number of employees until a large drop off at mentorship age. Technique Leaders show some signs of decreasing numbers from DOB Year 1961-1964 and a very large drop off again at mentorship age. Only 2 of the Managers will be retiring but there are also very few Managers in the entire company.
+
+    ![Retire by Title Year](./Resources/retiring_by_title_gr.png) 
+    ![Retire by Title Year](./Resources/managers_by_year.png)     
+
+    - As seen above in the Results section there are 62,172 retiring employees that are in senior or leadership roles. These will have to be filled by the current employees in similar roles or by promoting from lower roles. The retirees represent a large number of employees. In the very short term there will probably be enough people to get by. The serious problem is the lack of new employees in the mentorship eligible category. If that trend continues there will not be enough people to fill all the jobs lost to retirement.  
+    &nbsp;
+
+1. Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
+&nbsp;
+    - There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees. The problem is the lack of new employees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. 
+
+&nbsp;
+1. How does Pewlett Hackard attact new employees?
+
+    - Let's take a look at the gender breakdown of non-retiring employees
+
+```SQL
+    select gender, count(emp_no) as "Number of Employees"
+    from non_retirement_salaries
+    group by gender ;
+```
+
+![Number by Gender](./Resources/nonretiring_by_sex.png)   
