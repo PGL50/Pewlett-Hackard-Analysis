@@ -84,7 +84,7 @@ ORDER by e.emp_no, d.to_date DESC;
 
 ## Results
 
--   Large percentage of Total Employees are of retirement age (90,398/300,024 = 30.1%)
+-   A large percentage of Total Employees are of retirement age (90,398/300,024 = 30.1%)
     - Total Employees = 300,024
     ```SQL 
     select count(emp_no) as "Total Employees" from employees 
