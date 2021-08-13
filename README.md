@@ -117,7 +117,7 @@ ORDER by e.emp_no, d.to_date DESC;
 ## Summary and Further Analyses
 
 1. How many roles will need to be filled as the "silver tsunami" begins to make an impact?
-    - New code to look at number of retiring employees by age (DOBYear) to see haow many may be leaving by year,
+    - New code to look at number of retiring employees by age (DOBYear) to see how many may be leaving by year,
     ```sql
     SELECT u.emp_no,
         u.first_name,
