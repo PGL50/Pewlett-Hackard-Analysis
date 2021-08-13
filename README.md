@@ -114,4 +114,30 @@ ORDER by e.emp_no, d.to_date DESC;
     ```
     ![Mentee Titles](./Resources/mentees_titles.png) 
 
-    ## Summary and Further Analyses
+## Summary and Further Analyses
+
+1. How many roles will need to be filled as the "silver tsunami" begins to make an impact?
+    - New code to look at number of retiring employees by age (DOBYear) to see haow many may be leaving by year,
+    ```sql
+    SELECT u.emp_no,
+        u.first_name,
+        u.last_name,
+        u.title,
+	    e.birth_date,
+	    date_part('year',e.birth_date) as DOBYear,
+	    e.gender,
+	    s.salary
+    INTO retirement_salaries
+    FROM unique_titles as u
+    INNER JOIN employees as e ON (u.emp_no = e.emp_no)
+    INNER JOIN salaries as s ON (u.emp_no = s.emp_no)
+    ORDER by u.emp_no ;
+
+    select DOByear, count(emp_no) as "number of Employees"
+    from retirement_salaries
+    group by DOByear
+    order by DOByear ;
+    ```
+    ![Retire by Year](./Resources/retiring_by_year.png) 
+
+    ![Non Retire by Year](./Resources/nonretiring_by_year.png) 

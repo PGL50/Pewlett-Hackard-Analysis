@@ -66,6 +66,7 @@ from mentorship_eligibilty
 group by title
 order by count(emp_no) desc ;
 
+--------------------------------
 select * from unique_titles
 --- Look at salaries of retiring people
 --DROP TABLE retirement_salaries
@@ -85,21 +86,28 @@ ORDER by u.emp_no ;
 
 select count(*) from retirement_salaries ;
 
-select DOByear, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+-- select DOByear, round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+select DOByear, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money) as "Average Salary"
+from retirement_salaries
+group by DOByear
+order by DOByear ;
+
+select DOByear, title, cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "number of Employees"
+into retirement_salaries_out
 from retirement_salaries
 group by title ,DOByear
 order by title ,DOByear ;
 
-select gender, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+select gender, title, cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "number of Employees"
 from retirement_salaries
 group by title ,gender
 order by title ,gender ;
 
-select gender, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+select gender, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money) as "Salary"
 from retirement_salaries
 group by gender ;
 
-select DOByear, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+select DOByear, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money) as "Salary"
 from retirement_salaries
 group by DOByear , gender ;
 
@@ -124,17 +132,24 @@ ORDER by u.emp_no ;
 
 select count(*) from non_retirement_salaries ; 
 
-select DOByear, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+select DOByear, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money) as "Average Salary"
+from non_retirement_salaries
+-- where dobyear != 1965
+group by DOByear
+order by DOByear ;
+
+select DOByear, title,cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "number of Employees"
+into non_retirement_salaries_out
 from non_retirement_salaries
 group by title ,DOByear
 order by title ,DOByear ;
 
-select gender, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+select gender, title, cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "number of Employees"
 from non_retirement_salaries
 group by title ,gender
 order by title ,gender ;
 
-select gender, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+select gender, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money) as "Salary"
 from non_retirement_salaries
 group by gender ;
 
