@@ -179,11 +179,12 @@ ORDER by e.emp_no, d.to_date DESC;
 - Let's take a look at the gender breakdown of non-retiring employees
 
 ```SQL
-    select gender, count(emp_no) as "Number of Employees"
+    select gender, count(emp_no) as "Number of Employees",
+    cast(round(avg(salary),0) as money) as "Average Salary"
     from non_retirement_salaries
     group by gender ;
 ```
-- There are 50% more male employees than female. Much stronger recruitment of female candidates need to take place.
+- There are 50% more male employees than female. Much stronger recruitment of female candidates need to take place. The Salaries for non-retirement employees for women is a little higher than men. This could be used to attact more women employees.
 
 ![Number by Gender](./Resources/nonretiring_by_sex.png)   
 
