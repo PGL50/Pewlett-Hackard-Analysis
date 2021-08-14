@@ -169,12 +169,12 @@ ORDER by e.emp_no, d.to_date DESC;
 - As seen above in the Results section there are 62,172 retiring employees that are in senior or leadership roles. These will have to be filled by the current employees in similar roles or by promoting from lower roles. The retirees represent a large number of employees. In the very short term there will probably be enough people to get by. The serious problem is the lack of new employees in the mentorship eligible category. If that trend continues there will not be enough people to fill all the jobs lost to retirement.  
     &nbsp;
 
-1. Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
+2.  Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
 &nbsp;
 - There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees. The problem is the lack of new employees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The biggest problem for the future is attracting new employees.
 
 &nbsp;
-### How does Pewlett Hackard attact **new** employees?
+### How does Pewlett Hackard attract **new** employees?
 
 - Let's take a look at the gender breakdown of non-retiring employees
 
@@ -183,7 +183,7 @@ ORDER by e.emp_no, d.to_date DESC;
     from non_retirement_salaries
     group by gender ;
 ```
-- There are 50% more male employees than female. Much stronger recuitment of female candidates need to take place.
+- There are 50% more male employees than female. Much stronger recruitment of female candidates need to take place.
 
 ![Number by Gender](./Resources/nonretiring_by_sex.png)   
 
