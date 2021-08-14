@@ -140,13 +140,13 @@ from non_retirement_salaries
 group by DOByear
 order by DOByear ;
 
-select dobyear, --salary, --count(emp_no) as "number of Employees", 
+select title, --salary, --count(emp_no) as "number of Employees", 
 cast(round(avg(salary),0) as money) as "Average Salary"--, 
 --age(to_date, from_date) as years_on_job
 from non_retirement_salaries
 -- where dobyear != 1965
-group by  dobyear
-order by  dobyear ;
+group by  title
+order by  title ;
 
 select title, --dobyear, --salary, --count(emp_no) as "number of Employees", 
 cast(round(avg(salary),0) as money) as "Average Salary", 
