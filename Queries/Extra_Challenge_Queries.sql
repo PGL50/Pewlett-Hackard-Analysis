@@ -93,7 +93,7 @@ group by DOByear
 order by DOByear ;
 
 select DOByear, title, cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "number of Employees"
-into retirement_salaries_out
+-- into retirement_salaries_out
 from retirement_salaries
 group by title ,DOByear
 order by title ,DOByear ;
@@ -123,7 +123,9 @@ SELECT u.emp_no,
 	e.birth_date,
 	date_part('year',e.birth_date) as DOBYear,
 	e.gender,
-	s.salary
+	s.salary,
+	s.to_date,
+	s.from_date
 INTO non_retirement_salaries
 FROM unique_titles_nonretiring as u
 INNER JOIN employees as e ON (u.emp_no = e.emp_no)
@@ -138,7 +140,23 @@ from non_retirement_salaries
 group by DOByear
 order by DOByear ;
 
-select DOByear, title,cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "number of Employees"
+select dobyear, --salary, --count(emp_no) as "number of Employees", 
+cast(round(avg(salary),0) as money) as "Average Salary"--, 
+--age(to_date, from_date) as years_on_job
+from non_retirement_salaries
+-- where dobyear != 1965
+group by  dobyear
+order by  dobyear ;
+
+select title, --dobyear, --salary, --count(emp_no) as "number of Employees", 
+cast(round(avg(salary),0) as money) as "Average Salary", 
+avg(age(to_date, from_date)) as years_on_job, min(age(to_date, from_date)) as min,max(age(to_date, from_date)) as max
+from non_retirement_salaries
+-- where dobyear != 1965
+group by title--,dobyear
+order by title--, dobyear ;
+
+select DOByear, title,cast(round(avg(salary),0) as money) as "Average Salary", count(emp_no) as "Number of Employees"
 into non_retirement_salaries_out
 from non_retirement_salaries
 group by title ,DOByear
@@ -153,9 +171,10 @@ select gender, count(emp_no) as "number of Employees", cast(round(avg(salary),0)
 from non_retirement_salaries
 group by gender ;
 
-select DOByear, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+select DOByear, --count(emp_no) as "number of Employees", 
+cast(round(avg(salary),0) as money) as "Salary"
 from non_retirement_salaries
-where dobyear != 1965
+-- where dobyear != 1965
 group by DOByear ;
 
 

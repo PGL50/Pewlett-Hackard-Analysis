@@ -186,3 +186,28 @@ ORDER by e.emp_no, d.to_date DESC;
 - There are 50% more male employees than female. Much stronger recuitment of female candidates need to take place.
 
 ![Number by Gender](./Resources/nonretiring_by_sex.png)   
+
+- Here's another issue that could be addressed by the company. The salaries by DOB Year are the same regardless of the DOBYear which could be related to time on the job. There doesn't seem to be many increases available to employees.
+
+```SQL
+    select DOByear, cast(round(avg(salary),0) as money) as "Salary"
+    from non_retirement_salaries
+    group by DOByear ;
+```
+![Salaries](./Resources/nonretiring_salaries.png)  
+
+- Below is code and output looking at time on the job and average salaries by job title. There are a couple of issues below is that Need to be addressed. 
+```SQL
+select title, cast(round(avg(salary),0) as money) as "Average Salary", 
+    avg(age(to_date, from_date)) as years_on_job, 
+    min(age(to_date, from_date)) as min,
+    max(age(to_date, from_date) as max
+from non_retirement_salaries
+group by title
+order by title ;
+```
+- No employess has worked there for more than a year. Clearly they need a way to retain current employees. The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. 
+
+![Salaries](./Resources/nonretiring_by_title_salary_time.png)  
+
+![Salaries](./Resources/nonretiring_titles_gr.png)  
