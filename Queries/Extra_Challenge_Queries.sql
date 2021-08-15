@@ -237,8 +237,7 @@ SELECT e.emp_no,
 	d.from_date as emp_from_date,
 	d.to_date as emp_to_date,
 	d.dept_no,
-	de.dept_name as department--,
--- 	age(d.to_date, hire_date) as years_on_job
+	de.dept_name as department
 INTO emp_all_data
 FROM employees as e
 INNER JOIN titles as t ON (e.emp_no = t.emp_no)
@@ -252,7 +251,8 @@ set emp_to_date = '2021-08-13'
 where emp_to_date = '9999-01-01'
 
 select *, 
-age(emp_to_date, hire_date) as years_on_job
+date_part('year',age(emp_to_date, hire_date)) as years_on_job,
+age(emp_to_date, hire_date) as years
 from emp_all_data
 
 
@@ -261,12 +261,12 @@ from emp_all_data
 -- Get distinct most recent title
 SELECT DISTINCT ON (rt.emp_no)
     rt.*,
-	age(emp_to_date, hire_date) as years_on_job
+	date_part('year',age(emp_to_date, hire_date)) as years_on_job
 INTO emp_all_data_unique
 FROM emp_all_data rt
 ORDER BY rt.emp_no, rt.title_to_date DESC;
 
-select count(*) from emp_all_data_unique ;
+select count(*) from emp_all_data_unique ;                     
 
 SELECT distinct COUNT(title) as "Total Retiring Employees", title, avg(years_on_job) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
 FROM emp_all_data_unique

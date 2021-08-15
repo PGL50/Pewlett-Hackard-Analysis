@@ -176,7 +176,7 @@ ORDER by e.emp_no, d.to_date DESC;
 &nbsp;
 ### How does Pewlett Hackard attract **new** employees?
 
-- Let's take a look at the gender breakdown of non-retiring employees
+- Let's take a look at the gender breakdown of non-retiring employees. Here is code from a joined table from non_retirement_employees and the salary table.
 
 ```SQL
     select gender, count(emp_no) as "Number of Employees",
