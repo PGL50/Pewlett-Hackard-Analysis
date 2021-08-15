@@ -248,9 +248,12 @@ GROUP BY title
 ORDER BY COUNT(title) DESC ;
 ```
 - No employess has worked there for more than a year. Clearly they need a way to retain current employees. The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. Managers are the only position that show an advantage with years on the job.
-    - Retirement Age
+- Retirement Age
 
 ![Salaries](./Resources/retiring_by_years_salary.png) 
-    - Non-Retirement Age
+- Non-Retirement Age
 
 ![Salaries](./Resources/nonretiring_by_years_salary.png)    
+
+- Here are the same data in graph form that shows senior positions have no higher salaries except for manager.
+![Salaries](./Resources/titles_by_years_salary.png)  
