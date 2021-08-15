@@ -184,31 +184,73 @@ ORDER by e.emp_no, d.to_date DESC;
     from non_retirement_salaries
     group by gender ;
 ```
-- There are 50% more male employees than female. Much stronger recruitment of female candidates need to take place. The Salaries for non-retirement employees for women is a little higher than men. This could be used to attact more women employees.
+- There are 50% more male employees than female. Much stronger recruitment of female candidates need to take place. The Salaries for non-retirement employees for women is a little higher than men. This could be used to attract more women employees.
 
 ![Number by Gender](./Resources/nonretiring_by_sex.png)   
 
-- Here's another issue that could be addressed by the company. The salaries by DOB Year are the same regardless of the DOBYear which could be related to time on the job. There doesn't seem to be many increases available to employees.
-
+- Here's another issue that could be addressed by the company. The salaries by Years on the job does not go up as people are at the company longer. In order to address this possibility I duplicated the Dept_emp.to_date value. I then used UPDATE to change the '9999-01-01' the '2021-08-13' to get a look at current emnployees and use date diff function without a ficticious date. I duplicated the date field to keep with good data governance procedure and not change original data. Date_part and Age functions were used to calculate from hire_date to the new date. 
 ```SQL
-    select DOByear, cast(round(avg(salary),0) as money) as "Salary"
-    from non_retirement_salaries
-    group by DOByear ;
-```
-![Salaries](./Resources/nonretiring_salaries.png)  
+SELECT e.emp_no,
+    e.first_name,
+    e.last_name,
+	e.birth_date,
+	e.gender,
+	e.hire_date,
+    t.title,
+    t.from_date as title_from_date,
+    t.to_date as title_to_date,
+	s.salary,
+	s.from_date as salary_from_date,
+	s.to_date as salary_to_date,
+	d.from_date as emp_from_date,
+	d.to_date as emp_to_date,
+	d.to_date as emp_to_date_change,
+	d.dept_no,
+	de.dept_name as department
+INTO emp_all_data
+FROM employees as e
+INNER JOIN titles as t ON (e.emp_no = t.emp_no)
+INNER JOIN salaries as s ON (e.emp_no = s.emp_no)
+INNER JOIN dept_emp as d ON (e.emp_no=d.emp_no)
+INNER JOIN departments as de ON (d.dept_no=de.dept_no)
+ORDER by e.emp_no ;
 
-- Below is code and output looking at time on the job and average salaries by job title. There are a couple of issues below is that Need to be addressed. 
+update emp_all_data
+set emp_to_date_change = '2021-08-13'
+where emp_to_date_change = '9999-01-01'
+
+-- Get distinct most recent title
+SELECT DISTINCT ON (rt.emp_no)
+    rt.*,
+	date_part('year',age(emp_to_date_change, hire_date)) as years_on_job
+INTO emp_all_data_unique
+FROM emp_all_data rt
+ORDER BY rt.emp_no, rt.title_to_date DESC;
+```
+- The company can't expect to keep long term employees if there is no financial incentive to stay at the company long term.
+
+![Salaries](./Resources/Salary_Years_on_job.png)  
+
+- Below is code and output looking at time on the job and average salaries by job title for retirement age and all other employees. There are a couple of issues below is that need to be addressed. 
 ```SQL
-select title, cast(round(avg(salary),0) as money) as "Average Salary", 
-    avg(age(to_date, from_date)) as years_on_job, 
-    min(age(to_date, from_date)) as min,
-    max(age(to_date, from_date) as max
-from non_retirement_salaries
-group by title
-order by title ;
+SELECT 
+title, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+FROM emp_all_data_unique
+WHERE birth_date BETWEEN '1952-01-01' AND '1955-12-31'
+GROUP BY title
+ORDER BY COUNT(title) DESC ;                            
+
+SELECT 
+title, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+FROM emp_all_data_unique
+WHERE birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
+GROUP BY title
+ORDER BY COUNT(title) DESC ;
 ```
-- No employess has worked there for more than a year. Clearly they need a way to retain current employees. The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. 
+- No employess has worked there for more than a year. Clearly they need a way to retain current employees. The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. Managers are the only position that show an advantage with years on the job.
+    - Retirement Age
 
-![Salaries](./Resources/nonretiring_by_title_salary_time.png)  
+![Salaries](./Resources/retiring_by_years_salary.png) 
+    - Non-Retirement Age
 
-![Salaries](./Resources/nonretiring_titles_gr.png)  
+![Salaries](./Resources/nonretiring_by_years_salary.png)    

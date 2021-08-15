@@ -12,7 +12,7 @@ SELECT
 	date_part('year',e.birth_date) as DOBYear,
 	e.gender,
 	e.hire_date
--INTO non_retirement_employees
+INTO non_retirement_employees
 FROM employees as e
 WHERE emp_no NOT IN
   (SELECT emp_no 
@@ -236,6 +236,7 @@ SELECT e.emp_no,
 	s.to_date as salary_to_date,
 	d.from_date as emp_from_date,
 	d.to_date as emp_to_date,
+	d.to_date as emp_to_date_change,
 	d.dept_no,
 	de.dept_name as department
 INTO emp_all_data
@@ -247,12 +248,11 @@ INNER JOIN departments as de ON (d.dept_no=de.dept_no)
 ORDER by e.emp_no ;
 
 update emp_all_data
-set emp_to_date = '2021-08-13'
-where emp_to_date = '9999-01-01'
+set emp_to_date_change = '2021-08-13'
+where emp_to_date_change = '9999-01-01'
 
 select *, 
-date_part('year',age(emp_to_date, hire_date)) as years_on_job,
-age(emp_to_date, hire_date) as years
+date_part('year',age(emp_to_date_change, hire_date)) as years_on_job
 from emp_all_data
 
 
@@ -261,20 +261,24 @@ from emp_all_data
 -- Get distinct most recent title
 SELECT DISTINCT ON (rt.emp_no)
     rt.*,
-	date_part('year',age(emp_to_date, hire_date)) as years_on_job
+	date_part('year',age(emp_to_date_change, hire_date)) as years_on_job
 INTO emp_all_data_unique
 FROM emp_all_data rt
 ORDER BY rt.emp_no, rt.title_to_date DESC;
 
 select count(*) from emp_all_data_unique ;                     
 
-SELECT distinct COUNT(title) as "Total Retiring Employees", title, avg(years_on_job) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+SELECT 
+---distinct COUNT(title) as "Total Retiring Employees", 
+title, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
 FROM emp_all_data_unique
 WHERE birth_date BETWEEN '1952-01-01' AND '1955-12-31'
 GROUP BY title
-ORDER BY COUNT(title) DESC ;
+ORDER BY COUNT(title) DESC ;                            
 
-SELECT distinct COUNT(title) as "Total Retiring Employees", title, avg(years_on_job) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+SELECT 
+---distinct COUNT(title) as "Total Retiring Employees", 
+title, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
 FROM emp_all_data_unique
 WHERE birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
 GROUP BY title
@@ -282,9 +286,16 @@ ORDER BY COUNT(title) DESC ;
 
 SELECT distinct COUNT(emp_no) as "Total Retiring Employees", gender , avg(years_on_job) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
 FROM emp_all_data_unique
+WHERE birth_date BETWEEN '1952-01-01' AND '1955-12-31'
+GROUP BY gender
+ORDER BY COUNT(emp_no) DESC ;
+
+SELECT distinct COUNT(emp_no) as "Total Retiring Employees", gender , avg(years_on_job) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+FROM emp_all_data_unique
 WHERE birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
 GROUP BY gender
 ORDER BY COUNT(emp_no) DESC ;
+
 
 
 SELECT DISTINCT ON (emp_no) 
