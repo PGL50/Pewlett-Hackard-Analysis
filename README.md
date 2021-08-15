@@ -247,7 +247,7 @@ WHERE birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
 GROUP BY title
 ORDER BY COUNT(title) DESC ;
 ```
-- No employess has worked there for more than a year. Clearly they need a way to retain current employees. The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. Managers are the only position that show an advantage with years on the job.
+-  The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. Managers are the only position that show an advantage with years on the job.
 - Retirement Age
 
 ![Salaries](./Resources/retiring_by_years_salary.png) 
