@@ -210,15 +210,15 @@ ORDER by u.emp_no ;
 select count(*) from mentorship_salaries ; 
 select * from mentorship_salaries ; 
 
-select gender, title,round(avg(salary),0) as "Average Salary", count(emp_no) as "number of Employees"
+select --gender, 
+title,cast(round(avg(salary),0) as money)  as "Average Salary", count(emp_no) as "number of Employees"
 from mentorship_salaries
-group by title ,gender
-order by title ,gender ;
+group by title --,gender
+order by title --,gender ;
 
 select gender, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money)as "Salary"
 from mentorship_salaries
 group by gender ;
-
 
 ---Start from beginning to create full employee table
 ---DROP TABLE emp_all_data
@@ -301,6 +301,7 @@ distinct COUNT(title) as "Mentees",
 title, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
 FROM emp_all_data_unique
 WHERE birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+AND emp_to_date = '9999-01-01'
 GROUP BY title
 ORDER BY COUNT(title) DESC ;    
 

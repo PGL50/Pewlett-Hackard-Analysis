@@ -171,7 +171,7 @@ ORDER by e.emp_no, d.to_date DESC;
 
 2.  Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
 &nbsp;
-- There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees. The problem is the lack of new employees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The biggest problem for the future is retaining current employees and attracting new ones.
+- There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees for now. There are more than 62,000 retirement ready employees in leadership roles in the company. There are only 1,549 mentorship eligible ones. There should be extensice opportunities for the retirees to help the mentees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The long term problem is the lack of new employees. Pewlett-Hackard needs to look to the future as how to retaining current employees and attracting new ones.
 
 &nbsp;
 ### How does Pewlett Hackard attract **new** employees?
