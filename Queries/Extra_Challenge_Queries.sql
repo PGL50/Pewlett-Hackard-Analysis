@@ -215,7 +215,7 @@ from mentorship_salaries
 group by title ,gender
 order by title ,gender ;
 
-select gender, count(emp_no) as "number of Employees", round(avg(salary),0) as "Salary"
+select gender, count(emp_no) as "number of Employees", cast(round(avg(salary),0) as money)as "Salary"
 from mentorship_salaries
 group by gender ;
 
@@ -296,6 +296,21 @@ WHERE birth_date NOT BETWEEN '1952-01-01' AND '1955-12-31'
 GROUP BY gender
 ORDER BY COUNT(emp_no) DESC ;
 
+SELECT 
+distinct COUNT(title) as "Mentees", 
+title, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+FROM emp_all_data_unique
+WHERE birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+GROUP BY title
+ORDER BY COUNT(title) DESC ;    
+
+SELECT 
+distinct COUNT(gender) as "Mentees", 
+gender, round(avg(years_on_job)::numeric,1) as years_on_job, cast(round(avg(salary),0) as money) as "Average Salary"
+FROM emp_all_data_unique
+WHERE birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+GROUP BY gender
+ORDER BY COUNT(gender) DESC ; 
 
 
 SELECT DISTINCT ON (emp_no) 
@@ -330,6 +345,15 @@ WHERE emp_to_date = ('9999-01-01')
 AND birth_date BETWEEN '1965-01-01' AND '1965-12-31'
 group by title
 ORDER by title DESC ;
+
+
+SELECT count(emp_no), gender
+FROM emp_all_data_unique
+WHERE emp_to_date = ('9999-01-01')
+AND birth_date BETWEEN '1965-01-01' AND '1965-12-31'
+group by gender
+ORDER by gender DESC ;
+
 
 
 
