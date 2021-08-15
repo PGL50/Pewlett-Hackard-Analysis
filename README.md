@@ -166,12 +166,12 @@ ORDER by e.emp_no, d.to_date DESC;
     ![Retire by Title Year](./Resources/retiring_by_title_gr.png) 
     ![Retire by Title Year](./Resources/managers_by_year.png)     
 
-- As seen above in the Results section there are 62,172 retiring employees that are in senior or leadership roles. These will have to be filled by the current employees in similar roles or by promoting from lower roles. The retirees represent a large number of employees. In the very short term there will probably be enough people to get by. The serious problem is the lack of new employees in the mentorship eligible category. If that trend continues there will not be enough people to fill all the jobs lost to retirement.  
+- As seen above in the Results section there are 62,172 retiring employees that are in senior or leadership roles. These will have to be filled by the current employees in similar roles or by promoting from lower roles. The retirees represent a large number of employees. In the very short term there will probably be enough people to get by. The serious problem is the lack of new employees in the mentorship eligible category and younger. If that trend continues there will not be enough people to fill all the jobs lost to retirement.  
     &nbsp;
 
 2.  Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
 &nbsp;
-- There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees. The problem is the lack of new employees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The biggest problem for the future is attracting new employees.
+- There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees. The problem is the lack of new employees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The biggest problem for the future is retaining current employees and attracting new ones.
 
 &nbsp;
 ### How does Pewlett Hackard attract **new** employees?
@@ -188,7 +188,7 @@ ORDER by e.emp_no, d.to_date DESC;
 
 ![Number by Gender](./Resources/nonretiring_by_sex.png)   
 
-- Here's another issue that could be addressed by the company. The salaries by Years on the job does not go up as people are at the company longer. In order to address this possibility I duplicated the Dept_emp.to_date value. I then used UPDATE to change the '9999-01-01' the '2021-08-13' to get a look at current emnployees and use date diff function without a ficticious date. I duplicated the date field to keep with good data governance procedure and not change original data. Date_part and Age functions were used to calculate from hire_date to the new date. 
+- Here's another issue that could be addressed by the company. The salaries by Years on the job does not go up as people are at the company longer. In order to address this possibility I duplicated the Dept_emp.to_date value. I then used UPDATE to change the '9999-01-01' the '2021-08-13' to get a look at current emnployees and use date diff function without a ficticious, unreal date. I duplicated the date field to keep with good data governance procedure and not change original data. Date_part and Age functions were used to calculate years from hire_date to the new to_date. 
 ```SQL
 SELECT e.emp_no,
     e.first_name,
