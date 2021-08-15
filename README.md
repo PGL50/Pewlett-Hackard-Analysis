@@ -171,7 +171,7 @@ ORDER by e.emp_no, d.to_date DESC;
 
 2.  Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
 &nbsp;
-- There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees for now. There are more than 62,000 retirement ready employees in leadership roles in the company. There are only 1,549 mentorship eligible ones. There should be extensice opportunities for the retirees to help the mentees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The long term problem is the lack of new employees. Pewlett-Hackard needs to look to the future as how to retaining current employees and attracting new ones.
+- There is no question that there are plenty of non-retiring employees in Leadership positions to mentor the younger employees for now. There are more than 62,000 retirement ready employees in leadership roles in the company. There are only 1,549 mentorship eligible ones. There should be extensice opportunities for the retirees to help the mentees. Many of the retirees are at the Assistant Engineer, Engineer or Staff level. These level of positions are well filled by current employees. They may not be offering much mentoring to current employees in similar positions. The long term problem is the lack of new employees. Pewlett-Hackard needs to look to the future as how to retaining current employees and attract new ones.
 
 &nbsp;
 ### How does Pewlett Hackard attract **new** employees?
@@ -248,12 +248,14 @@ GROUP BY title
 ORDER BY COUNT(title) DESC ;
 ```
 -  The average salaries for roles are basically equal within job categories. All the Engineer positions have the same average salary regardless of seniority. The same is true of Staff and Senior Staff. Managers are the only position that show an advantage with years on the job.
-- Retirement Age
+#### * Retirement Age employees
 
-![Salaries](./Resources/retiring_by_years_salary.png) 
-- Non-Retirement Age
+![Salaries](./Resources/retiring_by_years_salary.png)
+#### * Non-Retirement Age employees
 
 ![Salaries](./Resources/nonretiring_by_years_salary.png)    
 
-- Here are the same data in graph form that shows senior positions have no higher salaries except for manager.
+- Here are the same data in graph form that shows senior positions have no higher salaries except for managers. And the average salaries are the same for retirement and non-retirement aged employees.
 ![Salaries](./Resources/titles_by_years_salary.png)  
+
+- Pewlett-Hackard will lose about 30% of it's workforce when the 1952-1955 cohort retires. The 1956-1965 cohort is coming right behind them. There si no evidence of a new generation of employees entereing the company.
