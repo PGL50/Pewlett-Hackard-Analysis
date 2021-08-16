@@ -1,6 +1,6 @@
 # Overview of the Pewlett-Hackard-Analysis. 
 
-### A manager at this company has requested some information on retiring employees as well as employess who are eligible for a mentorship program. Eligibility in both of these are base on the birth date of the employees. The PostGreSQL database created contains tables with infomration on employees, managers, department, employees department, titles and salaries. The analyses will be used to help the company prepare for the large number of retiring employees. Other tables and data will be explored to address how the company may want to deal with the "silver tsunami" of lots of retirement eligible employees.
+### A manager at this company has requested some information on retiring employees as well as employess who are eligible for a mentorship program. Eligibility in both of these are base on the birth date of the employees. The PostGreSQL database created contains tables with information on employees, managers, department, employees department, titles and salaries. The analyses will be used to help the company prepare for the large number of retiring employees. Other tables and data will be explored to address how the company may want to deal with the "silver tsunami" of lots of retirement eligible employees.
 
 ## Deliverable 1: The Number of Retiring Employees by Title
 
